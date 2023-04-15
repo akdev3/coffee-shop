@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @customer.name %></p>
+    <p>You order is now ready, you can pick it from the store.</p>
+    <p>These are your order details:</p>
+    <p>Your order number is <%= @order.order_number %></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Line Item #</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Discount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each_with_index do |line_item, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <% if line_item.item %>
+              <td><%= line_item.item.name %></td>
+            <% elsif line_item.group_item  %>
+              <td><%= line_item.group_item.name %></td>
+            <% elsif line_item.promotion_line_item  %>
+              <td>
+              <%= line_item.promotion_line_item.source_item.name %>
+               with
+              <%= line_item.promotion_line_item.dest_item.name %>
+              free
+              </td>
+            <% end %>
+            <td><%= line_item.quantity %></td>
+            <td><%= line_item.price %></td>
+            <td><%= line_item.disc * line_item.quantity %></td>
+          </tr>
+        <% end %>
+        <tfoot>
+          <tr>
+            <td colspan="3"><strong>Total Price</strong></td>
+            <td><%= @order.total_price %></td>
+          </tr>
+          <tr>
+            <td colspan="3"><strong>Discounted Price</strong></td>
+            <td><%= @order.discounted_price %></td>
+          </tr>
+        </tfoot>
+      </tbody>
+    </table>
+  </body>
+</html>
