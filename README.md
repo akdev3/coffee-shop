@@ -24,6 +24,8 @@
 
 * After 10 minutes of order placement, customer will receive an email about order completion.
 
+* There is an environment variable SEND_NOTIFICATION_EMAIL, change it's value based on need.
+
 ## API End Points
 
 * GET ```/api/v1/orders```
@@ -103,6 +105,8 @@ rails db:seed
 ```
 yarn install
 ```
+
+* Create .env file and set the environemnt variables, see .env.example
 
 ### Using API
 

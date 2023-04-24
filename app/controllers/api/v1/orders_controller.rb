@@ -29,7 +29,8 @@ class Api::V1::OrdersController < Api::V1::ApplicationController
     respond_to do |format|
       if @order.save!
         delay_time = 10.minutes
-        NotifierMailer.with(customer: @customer, isSendMessage: true, order: @order).new_message_email.deliver_later(wait: delay_time)
+        OrderStatusUpdateJob.set(wait: delay_time).perform_later(@order)
+
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render json: @order, status: :created }
       else

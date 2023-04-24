@@ -35,18 +35,18 @@
               </td>
             <% end %>
             <td><%= line_item.quantity %></td>
-            <td><%= line_item.price %></td>
-            <td><%= line_item.disc * line_item.quantity %></td>
+            <td>$<%= line_item.price %></td>
+            <td>$<%= line_item.disc * line_item.quantity %></td>
           </tr>
         <% end %>
         <tfoot>
           <tr>
             <td colspan="3"><strong>Total Price</strong></td>
-            <td><%= @order.total_price %></td>
+            <td>$<%= @order.total_price %></td>
           </tr>
           <tr>
             <td colspan="3"><strong>Discounted Price</strong></td>
-            <td><%= @order.discounted_price %></td>
+            <td>$<%= @order.discounted_price %></td>
           </tr>
         </tfoot>
       </tbody>
